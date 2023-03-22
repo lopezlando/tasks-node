@@ -7,7 +7,9 @@ function create(req, res, next) {
   taskService
     .create(req.body)
     .then((task) =>
-      task ? res.json(task) : res.status(400).json({ message: 'error' })
+      task
+        ? res.json(task)
+        : res.status(400).json({ message: 'Uncaught error' })
     )
     .catch((err) => next(err));
 }
@@ -17,7 +19,7 @@ function modify(req, res, next) {
   taskService
     .modify(req.params.id, req.body)
     .then((task) =>
-      task ? res.json(task) : res.status(400).json({ message: 'error' })
+      task && !task.error ? res.json(task) : res.status(404).json(task)
     )
     .catch((err) => next(err));
 }
@@ -27,7 +29,7 @@ function deleteTask(req, res, next) {
   taskService
     .deleteTask(req.params.id)
     .then((task) =>
-      task ? res.json(task) : res.status(400).json({ message: 'error' })
+      task && !task.error ? res.json(task) : res.status(404).json(task)
     )
     .catch((err) => next(err));
 }
@@ -36,7 +38,9 @@ function deleteTask(req, res, next) {
 function getById(req, res, next) {
   taskService
     .getById(req.params.id)
-    .then((task) => (task ? res.json(task) : res.sendStatus(404)))
+    .then((task) =>
+      task && !task.error ? res.json(task) : res.status(404).json(task)
+    )
     .catch((err) => next(err));
 }
 

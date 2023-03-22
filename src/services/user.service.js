@@ -34,7 +34,7 @@ async function create(userParam) {
   if (existing) {
     return (error = {
       message: 'Email already in use.',
-      errorCode: 'R002',
+      errorCode: 'E01',
     });
   }
 
@@ -54,8 +54,29 @@ async function create(userParam) {
 
 //BASIC GET FUNCTIONS
 
-async function getAll() {
-  return await User.find();
+async function getAll(queryParams) {
+  // defaults/formats the page and limit parameters
+  let page = Number(queryParams.page),
+    limit = Number(queryParams.limit);
+
+  !limit || limit < 1 || (isNaN(limit) && (limit = 10));
+
+  !page || page <= 1 || isNaN(page) ? (page = 0) : (page = (page - 1) * limit);
+
+  // filtering options
+  const filter = {};
+
+  queryParams.name &&
+    (filter.name = { $regex: queryParams.name, $options: 'i' });
+
+  queryParams.description &&
+    (filter.lastName = { $regex: queryParams.lastName, $options: 'i' });
+
+  queryParams.email &&
+    (filter.email = { $regex: queryParams.email, $options: 'i' });
+
+  //db query
+  return await User.find(filter).sort({ createdAt: 1 }).skip(page).limit(limit);
 }
 
 async function getById(id) {

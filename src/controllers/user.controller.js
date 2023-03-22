@@ -15,11 +15,12 @@ function authenticate(req, res, next) {
 }
 
 //REGISTER
-function register(req, res, next) {
-  userService
+function register(req, res, next) { userService
     .create(req.body)
     .then((user) =>
-      user ? res.json(user) : res.status(400).json({ message: 'Email in use' })
+      !user.errorCode
+        ? res.json(user)
+        : res.status(400).json({ message: user.message })
     )
     .catch((err) => next(err));
 }
@@ -27,7 +28,7 @@ function register(req, res, next) {
 //GET FUNCTIONS
 function getAll(req, res, next) {
   userService
-    .getAll()
+    .getAll(req.query)
     .then((users) => res.json(users))
     .catch((err) => next(err));
 }
