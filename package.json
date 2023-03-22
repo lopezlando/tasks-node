@@ -30,9 +30,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
+    "express-validator": "^6.15.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.21",
-    "rootpath": "^0.1.2"
+    "rootpath": "^0.1.2",
+    "validator": "^13.9.0"
   }
 }

@@ -19,7 +19,9 @@ function register(req, res, next) {
   userService
     .create(req.body)
     .then((user) =>
-      user ? res.json(user) : res.status(400).json({ message: 'Email in use' })
+      !user.errorCode
+        ? res.json(user)
+        : res.status(400).json({ message: user.message })
     )
     .catch((err) => next(err));
 }
@@ -27,7 +29,7 @@ function register(req, res, next) {
 //GET FUNCTIONS
 function getAll(req, res, next) {
   userService
-    .getAll()
+    .getAll(req.query)
     .then((users) => res.json(users))
     .catch((err) => next(err));
 }
@@ -35,6 +37,8 @@ function getAll(req, res, next) {
 function getById(req, res, next) {
   userService
     .getById(req.params.id)
-    .then((user) => (user ? res.json(user) : res.sendStatus(404)))
+    .then((user) =>
+      user && !user.error ? res.json(user) : res.status(404).json(user)
+    )
     .catch((err) => next(err));
 }
