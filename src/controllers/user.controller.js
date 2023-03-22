@@ -15,8 +15,7 @@ function authenticate(req, res, next) {
 }
 
 //REGISTER
-function register(req, res, next) {
-  userService
+function register(req, res, next) { userService
     .create(req.body)
     .then((user) =>
       !user.errorCode

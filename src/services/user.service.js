@@ -35,6 +35,7 @@ async function create(userParam) {
     return (error = {
       message: 'Email already in use.',
       errorCode: 'E01',
+      errorCode: 'E01',
     });
   }
 
