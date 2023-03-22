@@ -1,0 +1,38 @@
+{
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.21"
+  },
+  "name": "tasks-node",
+  "version": "1.0.0",
+  "description": "Developed by Sebastian Lopez Lando",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "start:dev": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lopezlando/tasks-node.git"
+  },
+  "author": "Sebastian Lopez Lando",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lopezlando/tasks-node/issues"
+  },
+  "homepage": "https://github.com/lopezlando/tasks-node#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.21",
+    "rootpath": "^0.1.2"
+  }
+}
