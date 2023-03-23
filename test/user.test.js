@@ -1,6 +1,8 @@
 const request = require('supertest');
 const { app, server } = require('../index');
 const { connection } = require('../_helpers/db');
+const { generateRandomString } = require('../_helpers/functions');
+const { ObjectId } = require('mongodb');
 
 describe('User test suite', () => {
   beforeAll(() => {
@@ -13,6 +15,9 @@ describe('User test suite', () => {
   });
 
   let testUser, secondUser, token;
+
+  const invalidId = new ObjectId().toString();
+
   const usersPayload = [
     {
       email: 'test@tasksnode.com',
@@ -180,13 +185,6 @@ describe('User test suite', () => {
     });
 
     it('should throw invalid ID error (no user with that id)', async () => {
-      let invalidId;
-
-      //ensures that we'll create an invalid Id. if the id ends with 1, we'll change the last character to a 2. In any other case, we'll change the last character to a 1
-      testUser.id[testUser.id.length - 1] === '1'
-        ? (invalidId = testUser.id.slice(0, -1) + '2')
-        : (invalidId = testUser.id.slice(0, -1) + '1');
-
       const res = await request(app)
         .get(`${routes.get}/${invalidId}`)
         .set('Authorization', `Bearer ${token}`);
@@ -276,15 +274,3 @@ describe('User test suite', () => {
     });
   });
 });
-
-//used to create overly lenghty strings in order to trigger validations
-function generateRandomString(length) {
-  let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
