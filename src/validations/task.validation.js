@@ -11,28 +11,25 @@ const errorsArray = (req, res, next) => {
 };
 
 const validateCreateTask = [
-  check('name', 'Name is required and should be between 1 and 50 characters')
+  check('name', 'Name is required and should be at most 50 characters')
     .notEmpty()
+    .if((value) => !value.isEmpty())
     .isLength({ min: 1, max: 50 }),
-  check(
-    'description',
-    'Description should be at most 300 characters'
-  )
+  check('description', 'Description should be at most 300 characters')
     .optional()
     .isLength({ max: 300 }),
-  check('completed', 'Completed should be a boolean value').isBoolean(),
+  check('completed', 'Completed should be a boolean value')
+    .optional()
+    .isBoolean(),
 ];
 
 const validateModifyTask = [
   param('id', 'Invalid ID, must be a Mongo ObjectID').isMongoId(),
-  check('name', 'Name should be between 2 and 50 characters')
+  check('name', 'Name should be at most 50 characters')
     .optional()
-    .isLength({ min: 2, max: 50 }),
+    .isLength({ min: 1, max: 50 }),
   check('name', 'Name cannot be empty').if(check('name').exists()).notEmpty(),
-  check(
-    'description',
-    'Description should be at most 300 characters'
-  )
+  check('description', 'Description should be at most 300 characters')
     .optional()
     .isLength({ max: 300 }),
   check('completed', 'Completed should be a boolean value')
@@ -48,10 +45,7 @@ const validateGetAll = [
   query('name', 'Name should be at most 50 characters')
     .optional()
     .isLength({ max: 50 }),
-  query(
-    'description',
-    'Description should be at most 300 characters'
-  )
+  query('description', 'Description should be at most 300 characters')
     .optional()
     .isLength({ max: 300 }),
   query('completed', 'Completed should be a boolean value')

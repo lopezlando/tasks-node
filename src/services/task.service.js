@@ -30,7 +30,15 @@ async function modify(id, changes) {
     }
   );
 
-  if (task === null) return { error: 'There is no task with that ID.' };
+  if (task === null)
+    return {
+      errors: [
+        {
+          msg: 'There is no task with that ID.',
+          location: 'body',
+        },
+      ],
+    };
   else return task;
 }
 
@@ -38,14 +46,29 @@ async function modify(id, changes) {
 async function deleteTask(id) {
   const task = await Task.deleteOne({ _id: id });
 
-  if (task.n === 0) return { error: 'There is no task with that ID.' };
+  if (task.n === 0)
+    return {
+      errors: [
+        {
+          msg: 'There is no task with that ID.',
+          location: 'body',
+        },
+      ],
+    };
   else return { message: 'The specified task was deleted.' };
 }
 
 //GET TASK
 async function getById(id) {
   const task = await Task.findById(id);
-  if (!task) return { error: 'There is no task with that ID.' };
+  if (!task) return {
+    errors: [
+      {
+        msg: 'There is no task with that ID.',
+        location: 'body',
+      },
+    ],
+  };
   else return task;
 }
 
