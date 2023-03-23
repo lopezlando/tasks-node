@@ -11,7 +11,7 @@ const errorsArray = (req, res, next) => {
 };
 
 const validateUserAuthenticate = [
-  check('email', 'Email should not exceed maximum email length')
+  check('email', 'Email should not exceed maximum email length.')
     .optional()
     .isLength({ max: 254 }),
   check('password', 'Password must be at most 20 characters long.').isLength({

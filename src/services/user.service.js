@@ -25,19 +25,31 @@ async function authenticate({ email, password }) {
       token,
     };
   }
+
+  if (!user)
+    return {
+      errors: [
+        {
+          msg: 'Incorrect username or password.',
+          location: 'body',
+        },
+      ],
+    };
 }
 
 //REGISTER
 async function create(userParam) {
   const existing = await User.findOne({ email: userParam.email });
 
-  if (existing) {
-    return (error = {
-      message: 'Email already in use.',
-      errorCode: 'E01',
-      errorCode: 'E01',
-    });
-  }
+  if (existing)
+    return {
+      errors: [
+        {
+          msg: 'Email already in use.',
+          location: 'body',
+        },
+      ],
+    };
 
   const user = new User({
     ...userParam,
@@ -82,6 +94,14 @@ async function getAll(queryParams) {
 
 async function getById(id) {
   const user = await User.findById(id);
-  if (!user) return { error: 'There is no user with that ID.' };
+  if (!user)
+    return {
+      errors: [
+        {
+          msg: 'There is no user with that ID.',
+          location: 'params',
+        },
+      ],
+    };
   else return user;
 }
