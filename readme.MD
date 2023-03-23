@@ -11,3 +11,5 @@ In order to start, open a command line in the root folder and run the following 
 3_`npm run test` to run jest unit testing for all endpoints.
 
 4_`npm run start:dev` to run the server with nodemon on. Otherwise, run `npm run start`.
+
+5_import the postman collection and environment. Create a user using the /register endpoint, then authenticate it to extract a valid JWT. Save the JWT in the adminToken variable in order to use the rest of the endpoints.
