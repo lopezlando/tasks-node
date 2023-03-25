@@ -6,7 +6,7 @@ In order to start, open a command line in the root folder and run the following 
 
 1\_`npm install` to install dependencies.
 
-2\_`npm run env` to generate env variables for both staging and testing environments. The staging file will have MONGODB_URI and DB_NAME fields empty, since these must be completed with a valid mongoDB uri and db name. Without it, the server will create a local database. PLEASE NOTE that a secret key for JWT is automatically assigned from the example file. For security reasons, this should be modified.
+2\_`npm run env` to generate env variables for both development and testing environments. The development file will have MONGODB_URI and DB_NAME fields empty, since these must be completed with a valid mongoDB uri and db name. Without it, the server will create a local database. PLEASE NOTE that a secret key for JWT is automatically assigned from the example file. For security reasons, this should be modified.
 
 2\_`npm run docs` to generate documentation for users and tasks APIs.
 
