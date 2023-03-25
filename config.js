@@ -1,10 +1,12 @@
 const path = require('path');
 
+// Use the NODE_ENV environment variable if set, otherwise use 'development'
+const env = process.env.NODE_ENV || 'development';
+
 // connects to test environment for unit testing
 let envFile = '.env';
-if (process.env.NODE_ENV === 'test') {
-  envFile = '.env.test';
-}
+
+if (env === 'test') envFile = '.env.test';
 
 require('dotenv').config({
   path: path.resolve(__dirname, envFile),
@@ -19,4 +21,5 @@ module.exports = {
   DB_NAME: process.env.DB_NAME,
   DB_LOCAL_URI: process.env.DB_LOCAL_URI,
   DB_LOCAL_NAME: process.env.DB_LOCAL_NAME,
+  NODE_ENV: env,
 };

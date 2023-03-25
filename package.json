@@ -17,7 +17,8 @@
     "start:dev": "nodemon ./index.js",
     "test": "npx jest ./test/user.test.js && npx jest ./test/task.test.js",
     "env": "cp env.example .env && cp env.test.example .env.test",
-    "docs": "jsdoc ./src/controllers/user.controller.js --destination ./docs/users && jsdoc ./src/controllers/task.controller.js --destination ./docs/tasks"
+    "docs": "jsdoc ./src/controllers/user.controller.js --destination ./docs/users && jsdoc ./src/controllers/task.controller.js --destination ./docs/tasks",
+    "populate-db": "set NODE_ENV=development && npx jest ./test/populate-db.test.js"
   },
   "repository": {
     "type": "git",
